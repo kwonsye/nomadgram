@@ -68,7 +68,7 @@ DJANGO_APPS = [
     "django.forms",
 ]
 THIRD_PARTY_APPS = [
-    "crispy_forms",
+    #"crispy_forms", # 필요없음
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
@@ -78,6 +78,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     "nomadgram.users.apps.UsersConfig",
     # Your stuff: custom apps go here
+    "nomadgram.images.apps.ImagesConfig", # images 앱
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
