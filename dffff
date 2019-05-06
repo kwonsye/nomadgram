@@ -1,0 +1,29 @@
+[33mcommit 02408512a0d69163864c3d9010db216ff5e0b5d3[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: kwonsye <kwonsye@naver.com>
+Date:   Thu Feb 20 23:45:07 2020 +0900
+
+    add gender,bio,phone,website field of User model
+
+[33mcommit 78d91e001a50a1335acc9b77a1bd99740cb3217e[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: kwonsye <kwonsye@naver.com>
+Date:   Sat May 4 10:10:00 2019 +0900
+
+    create images app and add app to LOCAL_APP
+
+[33mcommit b0897aed8e5d541b05ffb9e35a872c9b704747ea[m
+Author: kwonsye <kwonsye@naver.com>
+Date:   Thu May 2 10:14:00 2019 +0900
+
+    create pipfile.lock using pipenv and change settions of database:postgres
+
+[33mcommit 6e51c775f9010de4785361d3c996b78406b5658c[m
+Author: kwonsye <kwonsye@naver.com>
+Date:   Tue Apr 30 11:02:00 2019 +0900
+
+    edit README : add project stack info
+
+[33mcommit 5026c185f1c6dc42cbe9015d8e0fca5df02842bb[m
+Author: kwonsye <kwonsye@naver.com>
+Date:   Sat Apr 27 10:00:00 2019 +0900
+
+    first commit with project settings
