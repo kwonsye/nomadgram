@@ -22,6 +22,9 @@ class Image(TimeStampedModel):
     location = models.CharField(max_length=140)
     caption = models.TextField()
 
+    def __str__(self): # 인스턴스가 admin 페이지에 보이는 형식 
+        return "{}-{}".format(self.location,self.caption)
+
 class Comment(TimeStampedModel):
     
     """ 댓글 model """
@@ -30,9 +33,15 @@ class Comment(TimeStampedModel):
     message = models.TextField()
     image = models.ForeignKey(Image, on_delete=models.CASCADE, null=True)
 
+    def __str__(self):
+        return self.message
+
 class Like(TimeStampedModel):
 
     """ 좋아요 model """
 
     creator = models.ForeignKey(user_models.User, on_delete=models.CASCADE,null=True)
     image = models.ForeignKey(Image, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return "User:{} - Image Caption{}".format(self.creator.username, self.image.caption)
