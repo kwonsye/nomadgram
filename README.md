@@ -2,8 +2,13 @@
 
 Cloning Instagram From NomadCoder
 
-- Framework : Django 2.2.10
+- Framework : <a href="https://docs.djangoproject.com/en/2.2/">Django</a> 2.2.10
 - Local : Window Ubuntu shell 사용
-- Pip 9.0.1
+- Pip 20.0.2
 - Python 3.6.7
-- 가상환경 pipenv version 2018.11.26 
+- [ 가상환경 ] 
+    - pipenv version 2018.11.26 
+- [ REST api ] 
+    - <a href="https://www.django-rest-framework.org/">Django Rest Framework</a> 3.11.0
+    - <a href="https://hackernoon.com/restful-api-designing-guidelines-the-best-practices-60e1d954e7c9">RESTful API Designing guidelines — The best practices</a>
+
