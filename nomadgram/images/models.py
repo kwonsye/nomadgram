@@ -1,8 +1,6 @@
 from django.db import models
 from nomadgram.users import models as user_models
 
-# Create your models here.
-
 class TimeStampedModel(models.Model):
     
     """ base model for timestamp """

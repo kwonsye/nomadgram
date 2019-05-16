@@ -10,3 +10,5 @@ class ListAllImages(APIView):
         serializer = serializers.ImageSerializer(all_images, many=True) # for serialize images object
         
         return Response(data = serializer.data)
+
+list_all_images_view = ListAllImages.as_view()

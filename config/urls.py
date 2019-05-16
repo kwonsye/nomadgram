@@ -17,6 +17,8 @@ urlpatterns = [
     path("users/", include("nomadgram.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
+    path("images/", include("nomadgram.images.urls", namespace="images")), # image app url
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 # API URLS
 urlpatterns += [
