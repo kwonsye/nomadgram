@@ -23,3 +23,14 @@ class ListAllComments(APIView):
         return Response(data=serializer.data)
 
 list_all_comments_view = ListAllComments.as_view()
+
+class ListAllLikes(APIView):
+
+    def get(self, request, format=None):
+        
+        all_likes = models.Like.objects.all() # get all Like data from db
+        serializer = serializers.LikeSerializer(all_likes, many=True) # for serialize like objects
+
+        return Response(data=serializer.data)
+
+list_all_likes_view = ListAllLikes.as_view()
