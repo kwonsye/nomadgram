@@ -10,11 +10,15 @@ class ImageSerializer(serializers.ModelSerializer):
 
 class CommentSerializer(serializers.ModelSerializer):
 
+    image = ImageSerializer()
+    
     class Meta:
         model = models.Comment
         fields = '__all__'
 
 class LikeSerializer(serializers.ModelSerializer):
+
+    image = ImageSerializer() # Like object의 image 필드에 nested serializer 적용
 
     class Meta:
         model = models.Like
