@@ -29,7 +29,9 @@ class Comment(TimeStampedModel):
     
     creator = models.ForeignKey(user_models.User, on_delete=models.CASCADE, null=True)
     message = models.TextField()
-    image = models.ForeignKey(Image, on_delete=models.CASCADE, null=True)
+    image = models.ForeignKey(Image, on_delete=models.CASCADE, null=True, related_name='comments') 
+        # related_name : Image object에서 해당 comment를 부를때 사용하는 필드이름 = image object에서 comment_set 필드와 동일 
+                                                 
 
     def __str__(self):
         return self.message
@@ -39,7 +41,7 @@ class Like(TimeStampedModel):
     """ 좋아요 model """
 
     creator = models.ForeignKey(user_models.User, on_delete=models.CASCADE,null=True)
-    image = models.ForeignKey(Image, on_delete=models.CASCADE, null=True)
+    image = models.ForeignKey(Image, on_delete=models.CASCADE, null=True, related_name="likes")
 
     def __str__(self):
         return "User:{} - Image Caption{}".format(self.creator.username, self.image.caption)
