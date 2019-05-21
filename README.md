@@ -12,3 +12,6 @@ Cloning Instagram From NomadCoder
     - <a href="https://www.django-rest-framework.org/">Django Rest Framework</a> 3.11.0
     - <a href="https://hackernoon.com/restful-api-designing-guidelines-the-best-practices-60e1d954e7c9">RESTful API Designing guidelines — The best practices</a>
 
+- <b>TODO API Trello Board</b>
+    - https://trello.com/b/Dnl4D9dU
+
