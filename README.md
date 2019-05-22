@@ -3,6 +3,8 @@
 Cloning Instagram From NomadCoder
 
 - Framework : <a href="https://docs.djangoproject.com/en/2.2/">Django</a> 2.2.10
+- [ DB ] 
+    - PostgreSQL 11
 - Local : Window Ubuntu shell 사용
 - Pip 20.0.2
 - Python 3.6.7
