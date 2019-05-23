@@ -15,13 +15,16 @@ class Image(TimeStampedModel):
     
     """ 사진 model """
 
-    creator = models.ForeignKey(user_models.User, on_delete=models.CASCADE, null=True) # on_delete=models.CASCADE : creator모델이 지워지면 Image모델도 지워짐
+    creator = models.ForeignKey(user_models.User, on_delete=models.CASCADE, null=True, related_name="images") # on_delete=models.CASCADE : creator모델이 지워지면 Image모델도 지워짐
     file = models.ImageField() # 이미지 파일
     location = models.CharField(max_length=140)
     caption = models.TextField()
 
     def __str__(self): # 인스턴스가 admin 페이지에 보이는 형식 
         return "{}-{}".format(self.location,self.caption)
+
+    class Meta:
+        ordering = ['-created_at'] # 생성된 최근 순으로 db에서 가져온다.
 
 class Comment(TimeStampedModel):
     
