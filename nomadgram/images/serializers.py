@@ -1,14 +1,30 @@
 # for DRF
 from rest_framework import serializers
 from . import models
+from nomadgram.users import models as user_models
+
+class FeedUserSerializer(serializers.ModelSerializer):
+    """Feed에서 필요한 image creator의 정보 / Comment creator 의 정보"""
+    
+    class Meta:
+        model = user_models.User
+        fields = (
+            'username',
+            'profile_image',
+        )
 
 class CommentSerializer(serializers.ModelSerializer):
+    """ image의 댓글 """
 
-    #image = ImageSerializer()
+    creator = FeedUserSerializer()
 
     class Meta:
         model = models.Comment
-        fields = '__all__'
+        fields = (
+            'id',
+            'message',
+            'creator',
+        )
 
 class LikeSerializer(serializers.ModelSerializer):
 
@@ -18,12 +34,13 @@ class LikeSerializer(serializers.ModelSerializer):
         model = models.Like
         fields = '__all__'
 
+
 class ImageSerializer(serializers.ModelSerializer):
 
     #comment_set = CommentSerializer(many=True) # comment에서 foreign key로 연결된 image에 해당하는 comment object를 가져옴
     #like_set = LikeSerializer(many=True)
     comments = CommentSerializer(many=True) # model의 related_name
-    likes = LikeSerializer(many=True)
+    creator = FeedUserSerializer()
 
     class Meta:
         model = models.Image
@@ -35,5 +52,5 @@ class ImageSerializer(serializers.ModelSerializer):
             #'comment_set',
             #'like_set',
             'comments',
-            'likes',
+            'like_count',
         ) 
