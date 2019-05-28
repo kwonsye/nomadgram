@@ -60,3 +60,11 @@ class Feed(APIView):
         return Response(data=serializer.data)
 
 feed_view = Feed.as_view()
+
+class LikeImage(APIView):
+
+    def get(self,request, image_id, format=None):
+        print(image_id)
+        return Response(status=200)
+
+like_image_view = LikeImage.as_view()
