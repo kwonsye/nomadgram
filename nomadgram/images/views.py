@@ -64,7 +64,21 @@ feed_view = Feed.as_view()
 class LikeImage(APIView):
 
     def get(self,request, image_id, format=None):
-        print(image_id)
+        """image_id 의 이미지에 좋아요를 누른다"""
+
+        try:
+            found_image = models.Image.objects.get(id=image_id)
+        except models.Image.DoesNotExist:
+            return Response(status=404)
+
+        # 좋아요 생성
+        new_like = models.Like.objects.create(
+            creator=request.user,
+            image=found_image
+        )
+
+        new_like.save()
+        
         return Response(status=200)
 
 like_image_view = LikeImage.as_view()
