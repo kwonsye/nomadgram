@@ -1,5 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import status
 from . import models, serializers
 """
 class ListAllImages(APIView):
@@ -69,16 +70,26 @@ class LikeImage(APIView):
         try:
             found_image = models.Image.objects.get(id=image_id)
         except models.Image.DoesNotExist:
-            return Response(status=404)
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
-        # 좋아요 생성
-        new_like = models.Like.objects.create(
-            creator=request.user,
-            image=found_image
-        )
+        try:
+            # 이미 좋아요를 눌렀다면 unlike
+            preexisted_like = models.Like.objects.get(
+                creator=request.user,
+                image=found_image
+            )
+            preexisted_like.delete() 
 
-        new_like.save()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+
+        except models.Like.DoesNotExist:
+            # 이전에 누른 좋아요가 없다면 좋아요 생성
+            new_like = models.Like.objects.create(
+                creator=request.user,
+                image=found_image
+            )
+            new_like.save()
         
-        return Response(status=200)
+            return Response(status=status.HTTP_201_CREATED)
 
 like_image_view = LikeImage.as_view()
