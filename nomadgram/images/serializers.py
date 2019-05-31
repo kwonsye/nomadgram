@@ -16,12 +16,12 @@ class FeedUserSerializer(serializers.ModelSerializer):
 class CommentSerializer(serializers.ModelSerializer):
     """ image의 댓글 """
 
-    creator = FeedUserSerializer()
+    creator = FeedUserSerializer(read_only=True) # 수정할 수 없도록 
 
     class Meta:
         model = models.Comment
         fields = (
-            'id',
+            'id', # read only field
             'message',
             'creator',
         )

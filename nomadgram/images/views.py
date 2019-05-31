@@ -64,7 +64,7 @@ feed_view = Feed.as_view()
 
 class LikeImage(APIView):
 
-    def get(self,request, image_id, format=None):
+    def post(self,request, image_id, format=None):
         """image_id 의 이미지에 좋아요를 누른다"""
 
         try:
@@ -93,3 +93,26 @@ class LikeImage(APIView):
             return Response(status=status.HTTP_201_CREATED)
 
 like_image_view = LikeImage.as_view()
+
+class CommentOnImage(APIView):
+
+    def post(self,request,image_id,format=None):
+        """image_id의 이미지에 댓글을 생성한다."""
+        try:
+            found_image = models.Image.objects.get(id=image_id)
+        except models.Image.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        # request.data 로 {"message" : "hi"} 들어옴
+        serializer = serializers.CommentSerializer(data=request.data) # 파이썬 object로 serialize
+
+        if serializer.is_valid():
+
+            serializer.save(creator=request.user, image=found_image) # read only필드인 creator 채우고, Comment 모델의 image 필드 채우고 저장
+            
+            return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+        else:
+
+            return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+comment_image_view = CommentOnImage.as_view()
