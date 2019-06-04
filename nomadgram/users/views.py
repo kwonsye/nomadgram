@@ -7,6 +7,10 @@ class ExploreUsers(APIView):
 
     def get(self, request, format=None):
         """최근 가입한 5명의 user를 추천한다."""
-        pass
+        
+        last_five_users = models.User.objects.all().order_by('-date_joined')[:5]
+        serializer = serializers.ExploreUserSerializer(last_five_users, many=True)
+
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
 
 explore_users_view = ExploreUsers.as_view()
