@@ -73,14 +73,13 @@ class LikeImage(APIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         try:
-            # 이미 좋아요를 눌렀다면 unlike
+            # 이미 좋아요를 눌렀는지 확인
             preexisted_like = models.Like.objects.get(
                 creator=request.user,
                 image=found_image
             )
-            preexisted_like.delete() 
 
-            return Response(status=status.HTTP_204_NO_CONTENT)
+            return Response(status=status.HTTP_304_NOT_MODIFIED)
 
         except models.Like.DoesNotExist:
             # 이전에 누른 좋아요가 없다면 좋아요 생성
@@ -93,6 +92,30 @@ class LikeImage(APIView):
             return Response(status=status.HTTP_201_CREATED)
 
 like_image_view = LikeImage.as_view()
+
+class UnlikeImage(APIView):
+    
+    def delete(self, request, image_id, format=None):
+        """image_id 의 이미지에 좋아요를 삭제한다."""
+        try:
+            found_image = models.Image.objects.get(id=image_id)
+        except models.Image.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        try:
+            # 이미 좋아요를 눌렀다면 삭제
+            preexisted_like = models.Like.objects.get(
+                creator=request.user,
+                image=found_image
+            )
+            preexisted_like.delete()
+
+            return Response(status=status.HTTP_204_NO_CONTENT)
+
+        except models.Like.DoesNotExist:
+            # 이전에 누른 좋아요가 없다면
+            return Response(status=status.HTTP_304_NOT_MODIFIED)
+
 
 class CommentOnImage(APIView):
 
