@@ -4,6 +4,7 @@ from nomadgram.images.views import (
     like_image_view,
     comment_image_view,
     delete_comment_view,
+    unlike_image_view,
 )
 
 app_name = "images"

@@ -116,6 +116,7 @@ class UnlikeImage(APIView):
             # 이전에 누른 좋아요가 없다면
             return Response(status=status.HTTP_304_NOT_MODIFIED)
 
+unlike_image_view=UnlikeImage.as_view()
 
 class CommentOnImage(APIView):
 
