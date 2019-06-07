@@ -20,8 +20,8 @@ class User(AbstractUser):
     bio = models.TextField(null=True)
     phone = models.CharField(max_length=140, null=True)
     gender = models.CharField(max_length=80, choices=GENDER_CHOICES, null=True)
-    followers = models.ManyToManyField("self", blank=True) # 다대다 관계
-    followings = models.ManyToManyField("self", blank=True) # blank=True면 필수 필드가 아님 
+    followers = models.ManyToManyField("self", blank=True) # 나를 팔로하는 사람들 / 다대다 관계
+    followings = models.ManyToManyField("self", blank=True) # 내가 팔로하는 사람들 / blank=True면 필수 필드가 아님 
 
     def __str__(self):
         return self.username
