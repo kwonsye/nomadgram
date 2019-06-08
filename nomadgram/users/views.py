@@ -26,9 +26,44 @@ class FollowUser(APIView):
         except models.User.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        user.followings.add(user_to_follow)
-        user.save()
+        user_followings_set = user.followings.all()
 
-        return Response(status=status.HTTP_200_OK)
+        # 기존에 follow 하지 않은 사용자라면 팔로우한다.
+        try:
+            preexited_following = user_followings_set.get(id=user_id)
+
+            return Response(status=status.HTTP_304_NOT_MODIFIED)
+
+        except models.User.DoesNotExist:
+            user.followings.add(user_to_follow)
+            user.save()
+            return Response(status=status.HTTP_200_OK)
+
 
 follow_user_view = FollowUser.as_view()
+
+class UnfollowUser(APIView):
+
+    def post(self, request, user_id, format=None):
+        """request.user 가 user_id의 사용자를 언팔로우한다."""
+
+        user = request.user
+        try:
+            user_to_unfollow = models.User.objects.get(id=user_id)
+        except models.User.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        user_followings_set = user.followings.all()
+
+        # 기존에 follow 하고 있었던 사용자라면 언팔로우한다.
+        try:
+            preexited_following = user_followings_set.get(id=user_id)
+            user.followings.remove(preexited_following)
+            user.save()
+
+            return Response(status=status.HTTP_200_OK)
+
+        except models.User.DoesNotExist:
+            return Response(status=status.HTTP_304_NOT_MODIFIED)
+
+unfollow_user_view = UnfollowUser.as_view()
