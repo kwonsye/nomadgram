@@ -54,3 +54,15 @@ class ImageSerializer(serializers.ModelSerializer):
             'comments',
             'like_count',
         ) 
+
+class UserProfileImageSerializer(serializers.ModelSerializer):
+
+    """user profile 페이지의 각 Image 게시물에 사용될 serializer """
+    class Meta:
+        model = models.Image
+        fields = (
+            'id',
+            'file',
+            'comment_count',
+            'like_count',
+        )

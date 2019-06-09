@@ -25,6 +25,10 @@ class Image(TimeStampedModel):
         # image에 눌린 likes 개수
         return self.likes.all().count()
 
+    @property
+    def comment_count(self):
+        return self.comments.all().count()
+
     def __str__(self): # 인스턴스가 admin 페이지에 보이는 형식 
         return "{}-{}".format(self.location,self.caption)
 
