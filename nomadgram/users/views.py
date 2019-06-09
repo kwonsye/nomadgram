@@ -67,3 +67,18 @@ class UnfollowUser(APIView):
             return Response(status=status.HTTP_304_NOT_MODIFIED)
 
 unfollow_user_view = UnfollowUser.as_view()
+
+class UserProfile(APIView):
+
+    def get(self, request, username, format=None):
+        """username 의 사용자의 프로필 페이지를 보여준다."""
+
+        try:
+            found_user = models.User.objects.get(username=username)
+        except models.User.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        serializer = serializers.UserProfileSerializer(found_user)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+user_profile_view = UserProfile.as_view()
