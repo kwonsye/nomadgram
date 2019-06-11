@@ -9,7 +9,7 @@ class ExploreUsers(APIView):
         """최근 가입한 5명의 user를 추천한다."""
         
         last_five_users = models.User.objects.all().order_by('-date_joined')[:5]
-        serializer = serializers.ExploreUserSerializer(last_five_users, many=True)
+        serializer = serializers.ListUserSerializer(last_five_users, many=True)
 
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
@@ -82,3 +82,20 @@ class UserProfile(APIView):
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
 user_profile_view = UserProfile.as_view()
+
+class UserFollowers(APIView):
+    
+    def get(self, request, username, format=None):
+        """username 의 사용자의 follower list를 보여준다. """
+
+        try:
+            found_user = models.User.objects.get(username=username)
+        except models.User.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        user_followers = found_user.followers.all()
+        serializer = serializers.ListUserSerializer(user_followers, many=True)
+
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+user_followers_view = UserFollowers.as_view()
