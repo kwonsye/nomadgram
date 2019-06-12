@@ -99,3 +99,20 @@ class UserFollowers(APIView):
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
 user_followers_view = UserFollowers.as_view()
+
+class UserFollowings(APIView):
+    
+    def get(self, request, username, format=None):
+        """username 의 사용자의 followings list를 보여준다. """
+
+        try:
+            found_user = models.User.objects.get(username=username)
+        except models.User.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        user_followings = found_user.followings.all()
+        serializer = serializers.ListUserSerializer(user_followings, many=True)
+
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+user_followings_view = UserFollowings.as_view()
