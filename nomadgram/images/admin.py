@@ -23,6 +23,7 @@ class ImageAdmin(admin.ModelAdmin):
 
     list_display_links = (
         'file',
+        'caption',
     )
 
     list_display = (

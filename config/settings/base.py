@@ -73,6 +73,7 @@ THIRD_PARTY_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "rest_framework", # DRF
+    "taggit", # [django-taggit]https://django-taggit.readthedocs.io/en/latest/index.html 
 ]
 
 LOCAL_APPS = [
@@ -281,3 +282,4 @@ REST_FRAMEWORK = {
 }
 # Your stuff...
 # ------------------------------------------------------------------------------
+TAGGIT_CASE_INSENSITIVE = True # taggit
