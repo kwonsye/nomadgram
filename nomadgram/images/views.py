@@ -157,3 +157,15 @@ class Comment(APIView):
 
 
 delete_comment_view = Comment.as_view()
+
+class Search(APIView):
+
+    def get(self, request, format=None):
+        """params으로 들어오는 hashtag로 이미지를 검색한다. """
+        # images/search?hashtags=apple,banana
+        # request.query_params # <QueryDict: {'hashtags': ['apple, banana']}>
+        hashtags_params = request.query_params.get('hashtags', None) # apple, banana
+        
+        return Response(status=status.HTTP_200_OK)
+
+search_view = Search.as_view()
