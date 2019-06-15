@@ -165,7 +165,17 @@ class Search(APIView):
         # images/search?hashtags=apple,banana
         # request.query_params # <QueryDict: {'hashtags': ['apple, banana']}>
         hashtags_params = request.query_params.get('hashtags', None) # apple, banana
-        
-        return Response(status=status.HTTP_200_OK)
+
+        if hashtags_params is not None:
+
+            hashtags = hashtags_params.split(',')
+
+            found_image = models.Image.objects.filter(tags__name__in=hashtags).distinct() # deep relation / tag 별로 중복되지 않은 object
+            serializer = serializers.SimpleCountImageSerializer(found_image, many=True)
+
+            return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 search_view = Search.as_view()
