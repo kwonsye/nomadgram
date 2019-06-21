@@ -116,3 +116,21 @@ class UserFollowings(APIView):
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
 user_followings_view = UserFollowings.as_view()
+
+class Search(APIView):
+
+    def get(self, request, format=None):
+        """param의 username 의 user를 찾는다. """
+        username = request.query_params.get('username', None)
+
+        if username is not None:
+            found_users = models.User.objects.filter(username__istartswith=username) # 대소문자 구분하지 않고 param의 username으로 시작하는 user
+
+            serializer = serializers.ListUserSerializer(found_users, many=True)
+
+            return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+search_user_view = Search.as_view()

@@ -7,6 +7,7 @@ from nomadgram.users.views import (
     user_profile_view,
     user_followers_view,
     user_followings_view,
+    search_user_view,
 )
 
 app_name = "users"
@@ -17,4 +18,5 @@ urlpatterns = [
     path("<str:username>/",view=user_profile_view, name="user_profile_view"), # /users/sooyeon/ -> see profile page of username=sooyeon 
     path("<str:username>/followers/", view=user_followers_view, name="user_followers_view"), # /users/sooyeon/followers -> see followers of username=sooyeon
     path("<str:username>/followings/", view=user_followings_view, name="user_followings_view"), # /users/sooyeon/followingss -> see followings of username=sooyeon
+    path("search", view=search_user_view, name="search_user_view"), # users/search?username=sooyeon -> search user username=sooyeon
 ]
