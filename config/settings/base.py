@@ -73,7 +73,7 @@ THIRD_PARTY_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "rest_framework", # DRF
-    "taggit", # [django-taggit]https://django-taggit.readthedocs.io/en/latest/index.html 
+    "taggit", # [django-taggit]https://github.com/jazzband/django-taggit
 ]
 
 LOCAL_APPS = [

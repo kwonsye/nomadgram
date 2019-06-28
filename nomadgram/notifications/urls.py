@@ -5,5 +5,5 @@ from nomadgram.notifications.views import (
 
 app_name = "notifications"
 urlpatterns = [
-    path("", view=notifications_view, name="notifications_view"), # /notifications ->
+    path("", view=notifications_view, name="notifications_view"), # /notifications -> get request user's noti
 ]
