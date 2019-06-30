@@ -14,3 +14,4 @@ class Notification(image_models.TimeStampedModel):
     to = models.ForeignKey(user_models.User, on_delete=models.CASCADE, related_name="to_notification")
     notification_type = models.CharField(max_length=40, choices=TYPE_CHOICES)
     image = models.ForeignKey(image_models.Image,on_delete=models.CASCADE, blank=True, null=True) # like와 comment 가 달린 image
+    comment = models.TextField(null=True, blank=True) # comment type의 알람일 경우 comment 내용도 저장
