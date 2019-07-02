@@ -10,9 +10,13 @@ Cloning Instagram From NomadCoder
 - Python 3.6.7
 - [ 가상환경 ] 
     - pipenv version 2018.11.26 
-- [ REST api ] 
-    - <a href="https://www.django-rest-framework.org/">Django Rest Framework</a> 3.11.0
-    - <a href="https://hackernoon.com/restful-api-designing-guidelines-the-best-practices-60e1d954e7c9">RESTful API Designing guidelines — The best practices</a>
+
+- [ Dependencies ]
+    - REST API
+        - <a href="https://www.django-rest-framework.org/">Django Rest Framework</a> 3.11.0
+        - <a href="https://hackernoon.com/restful-api-designing-guidelines-the-best-practices-60e1d954e7c9">RESTful API Designing guidelines — The best practices</a>
+
+    - For Tag : <a href="https://github.com/jazzband/django-taggit">Django-Taggit</a>
 
 - <b>TODO API Trello Board</b>
     - https://trello.com/b/Dnl4D9dU
