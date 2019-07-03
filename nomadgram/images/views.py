@@ -2,6 +2,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from . import models, serializers
+from nomadgram.notifications import views as notification_views
+
 """
 class ListAllImages(APIView):
 
@@ -89,6 +91,9 @@ class LikeImage(APIView):
             )
             new_like.save()
         
+            # create noti
+            notification_views.create_notification(request.user, found_image.creator, 'like', found_image)
+
             return Response(status=status.HTTP_201_CREATED)
 
 like_image_view = LikeImage.as_view()
@@ -134,6 +139,10 @@ class CommentOnImage(APIView):
 
             serializer.save(creator=request.user, image=found_image) # read only필드인 creator 채우고, Comment 모델의 image 필드 채우고 저장
             
+            # create noti
+            notification_views.create_notification(
+                request.user, found_image.creator, 'comment', found_image, serializer.data['message']) # request.data['message']도 가능
+
             return Response(data=serializer.data, status=status.HTTP_201_CREATED)
         else:
 
