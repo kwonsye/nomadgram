@@ -188,3 +188,20 @@ class Search(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 search_view = Search.as_view()
+
+class ModerateComments(APIView):
+
+    def delete(self, request, image_id, comment_id, format=None):
+        """request.user가 creator인 image_id의 image에 달린 comment_id의 comment를 삭제한다. """
+        
+        try:
+            comment_to_delete=models.Comment.objects.get(
+                id=comment_id, image__id=image_id, image__creator=request.user)
+            comment_to_delete.delete()
+
+        except models.Comment.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+moderate_comment_view = ModerateComments.as_view()

@@ -5,6 +5,7 @@ from nomadgram.images.views import (
     comment_image_view,
     delete_comment_view,
     unlike_image_view,
+    moderate_comment_view,
     search_view,
 )
 
@@ -18,5 +19,6 @@ urlpatterns = [
     path("<int:image_id>/unlike/", view=unlike_image_view, name="unlike_image_view"), #/images/3/unlike -> delete like to image=3
     path("<int:image_id>/comments/", view=comment_image_view, name="comment_image_view"), #/images/3/comments -> create comment to image id=3
     path("comments/<int:comment_id/",view=delete_comment_view, name="delete_comment_view"), #/images/comments/4 -> delete comment id=4 (if creator == user)
+    path("<int:image_id>/comments/<int:comment_id>/", view=moderate_comment_view, name="moderate_comment_view"), # /images/3/comments/4 -> delete comment_id=4 from image_id=3 (if image_creator==user)
     path("search", view=search_view, name="search_view"), # /images/search?hashtags=apple,sweet -> search images by hashtags
 ]

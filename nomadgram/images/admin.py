@@ -27,6 +27,7 @@ class ImageAdmin(admin.ModelAdmin):
     )
 
     list_display = (
+        'id',
         'creator',
         'file',
         'location',
@@ -52,6 +53,7 @@ class CommentAdmin(admin.ModelAdmin):
     )
     # admin 페이지의 테이블에서 보여줄 필드 리스트
     list_display = (
+        'id',
         'message',
         'creator',
         'image',
@@ -74,6 +76,7 @@ class LikeAdmin(admin.ModelAdmin):
     )
 
     list_display = (
+        'id',
         'creator',
         'image',
         'created_at',
