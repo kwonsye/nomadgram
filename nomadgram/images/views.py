@@ -55,8 +55,13 @@ class Feed(APIView):
             for image in current_images:
                 images_list.append(image)
 
+        my_images = user.images.all()[:2] # 내가 생성한 image도 상위2개만 가져온다.
+
+        for image in my_images:
+            images_list.append(image) 
+
         sorted_images_list = sorted(images_list, key=lambda image: image.created_at, reverse=True) # 이미지들을 생성 최신순으로 정렬
-        print(sorted_images_list)
+        #print(sorted_images_list)
 
         serializer = serializers.ImageSerializer(sorted_images_list, many=True)
 
