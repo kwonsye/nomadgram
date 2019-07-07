@@ -210,3 +210,20 @@ class ModerateComments(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 moderate_comment_view = ModerateComments.as_view()
+
+class ImageDetail(APIView):
+
+    def get(self, request, image_id, format=None):
+        """image_id의 상세페이지를 보여준다."""
+
+        try:
+            found_image = models.Image.objects.get(id=image_id)
+
+        except models.Image.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        serializer = serializers.ImageSerializer(found_image)
+        
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+detail_image_view = ImageDetail.as_view()

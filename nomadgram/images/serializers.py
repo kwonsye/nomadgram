@@ -47,6 +47,7 @@ class ImageSerializer(serializers.ModelSerializer):
         fields = (
             'creator',
             'file',
+            'created_at',
             'location',
             'caption',
             #'comment_set',
