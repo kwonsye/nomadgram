@@ -2,7 +2,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from . import models, serializers
+from nomadgram.users import serializers as user_serializers
 from nomadgram.notifications import views as notification_views
+from nomadgram.users import models as user_models
 
 """
 class ListAllImages(APIView):
@@ -71,8 +73,21 @@ feed_view = Feed.as_view()
 
 class LikeImage(APIView):
 
+    def get(self, request, image_id, format=None):
+        """image_id의 image를 좋아요한 유저 리스트를 보여준다."""
+
+        likes = models.Like.objects.filter(image__id=image_id)
+        #print(likes.values()) # [values()] https://docs.djangoproject.com/en/2.2/ref/models/querysets/#values
+
+        like_creators_ids = likes.values('creator_id') # like object들의 creator의 id 리스트를 뽑음
+        like_creators = user_models.User.objects.filter(id__in=like_creators_ids) # array를 돌면서 user object filter
+
+        serializer = user_serializers.ListUserSerializer(like_creators, many=True)
+
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
     def post(self,request, image_id, format=None):
-        """image_id 의 이미지에 좋아요를 누른다"""
+        """image_id 의 image에 좋아요를 누른다"""
 
         try:
             found_image = models.Image.objects.get(id=image_id)
@@ -223,7 +238,7 @@ class ImageDetail(APIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         serializer = serializers.ImageSerializer(found_image)
-        
+
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
 detail_image_view = ImageDetail.as_view()
