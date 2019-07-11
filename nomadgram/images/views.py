@@ -228,6 +228,25 @@ moderate_comment_view = ModerateComments.as_view()
 
 class ImageDetail(APIView):
 
+    def put(self, request, image_id, format=None):
+        """image_id의 image를 수정한다. ex) {"location" : "seoul"} """
+
+        try:
+            image_to_edit = models.Image.objects.get(id=image_id, creator=request.user) # 내가 올린 image만 수정가능 해야함
+
+        except models.Image.DoesNotExist:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+        serializer = serializers.InputImageSerializer(image_to_edit, data=request.data, partial=True) # 일부만 들어와도 기존 object를 가져와서 partial update가 가능하도록
+        
+        if serializer.is_valid():
+
+            serializer.save(creator=request.user) # update한 내용으로 object 저장
+            return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+        
+        else:
+            return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
     def get(self, request, image_id, format=None):
         """image_id의 상세페이지를 보여준다."""
 
