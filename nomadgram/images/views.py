@@ -228,13 +228,21 @@ moderate_comment_view = ModerateComments.as_view()
 
 class ImageDetail(APIView):
 
+    def find_own_image(self, image_id, user): # class 안에 있는 function이므로 self 가 argument로 넘어가야함
+        """"creator == request.user 인 image를 찾는다. """
+        try:
+            image = models.Image.objects.get(id=image_id, creator=user)
+            return image
+
+        except models.Image.DoesNotExist:
+            return None
+
     def put(self, request, image_id, format=None):
         """image_id의 image를 수정한다. ex) {"location" : "seoul"} """
 
-        try:
-            image_to_edit = models.Image.objects.get(id=image_id, creator=request.user) # 내가 올린 image만 수정가능 해야함
-
-        except models.Image.DoesNotExist:
+        image_to_edit = self.find_own_image(image_id, request.user)
+        
+        if image_to_edit is None:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
         serializer = serializers.InputImageSerializer(image_to_edit, data=request.data, partial=True) # 일부만 들어와도 기존 object를 가져와서 partial update가 가능하도록
@@ -259,5 +267,17 @@ class ImageDetail(APIView):
         serializer = serializers.ImageSerializer(found_image)
 
         return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+    def delete(self, request, image_id, format=None):
+        """image_id의 image를 삭제한다. """
+
+        image_to_delete = self.find_own_image(image_id, request.user)
+
+        if image_to_delete is None:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+        
+        image_to_delete.delete()
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 detail_image_view = ImageDetail.as_view()
