@@ -250,7 +250,7 @@ class ImageDetail(APIView):
         if serializer.is_valid():
 
             serializer.save(creator=request.user) # update한 내용으로 object 저장
-            return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+            return Response(data=serializer.data, status=status.HTTP_200_OK)
         
         else:
             return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
