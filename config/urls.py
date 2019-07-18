@@ -5,6 +5,7 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
 from rest_framework.authtoken.views import obtain_auth_token
+from rest_framework_jwt.views import obtain_jwt_token # django-restframework-jwt
 
 urlpatterns = [
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
@@ -16,6 +17,7 @@ urlpatterns = [
     # User management
     path("users/", include("nomadgram.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
+    path("api-token-auth/", obtain_jwt_token), # djanto-restframework-jwt
     # Your stuff: custom urls includes go here
     path("images/", include("nomadgram.images.urls", namespace="images")), # image app url
     path("notifications/", include("nomadgram.notifications.urls", namespace="notifications")), # notification app url
