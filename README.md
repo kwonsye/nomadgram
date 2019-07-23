@@ -19,6 +19,9 @@ Cloning Instagram From NomadCoder
 
     - Tag
         - <a href="https://github.com/jazzband/django-taggit">Django-Taggit</a>
+        - tag-serializer
+            - <a href="https://github.com/glemmaPaul/django-taggit-serializer">Django-Taggit-Serializer</a>
+    
     - JWT
         - <a href="https://jpadilla.github.io/django-rest-framework-jwt/">Django Rest Framework JWT</a>
 
