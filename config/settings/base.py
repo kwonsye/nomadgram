@@ -73,8 +73,11 @@ THIRD_PARTY_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "rest_framework", # DRF
+    "rest_framework.authtoken",
     "taggit", # [django-taggit]https://github.com/jazzband/django-taggit
-    'taggit_serializer', #[djagno-taggit-serializer]https://github.com/glemmaPaul/django-taggit-serializer
+    "taggit_serializer", #[djagno-taggit-serializer]https://github.com/glemmaPaul/django-taggit-serializer
+    "rest_auth", #[django-rest-auth]https://django-rest-auth.readthedocs.io/en/latest/installation.html
+    'rest_auth.registration', # [django-rest-auth]enable registeration
 ]
 
 LOCAL_APPS = [
@@ -101,9 +104,9 @@ AUTHENTICATION_BACKENDS = [
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
 AUTH_USER_MODEL = "users.User"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
-LOGIN_REDIRECT_URL = "users:redirect"
+#LOGIN_REDIRECT_URL = "users:redirect"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
-LOGIN_URL = "account_login"
+#LOGIN_URL = "account_login"
 
 # PASSWORDS
 # ------------------------------------------------------------------------------
@@ -264,9 +267,9 @@ ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_AUTHENTICATION_METHOD = "username"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
-ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_REQUIRED = False
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_EMAIL_VERIFICATION = "none" # change mandatory -> none
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_ADAPTER = "nomadgram.users.adapters.AccountAdapter"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
@@ -278,8 +281,8 @@ SOCIALACCOUNT_ADAPTER = "nomadgram.users.adapters.SocialAccountAdapter"
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_jwt.authentication.JSONWebTokenAuthentication", # [django-rest-framework-jwt]https://jpadilla.github.io/django-rest-framework-jwt/
-        "rest_framework.authentication.SessionAuthentication",
-        'rest_framework.authentication.BasicAuthentication',
+        #"rest_framework.authentication.SessionAuthentication",
+        #'rest_framework.authentication.BasicAuthentication',
         #"rest_framework.authentication.TokenAuthentication",
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
@@ -288,3 +291,6 @@ REST_FRAMEWORK = {
 # Your stuff...
 # ------------------------------------------------------------------------------
 TAGGIT_CASE_INSENSITIVE = True # taggit
+SITE_ID = 1 # django-rest-auth registeration
+REST_USE_JWT = True # django-rest-auth jwt option https://django-rest-auth.readthedocs.io/en/latest/installation.html#jwt-support-optional
+ACCOUNT_LOGOUT_ON_GET = True # django-rest-auth logout option https://django-rest-auth.readthedocs.io/en/latest/api_endpoints.html
