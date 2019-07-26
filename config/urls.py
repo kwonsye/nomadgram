@@ -17,7 +17,10 @@ urlpatterns = [
     # User management
     path("users/", include("nomadgram.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
-    path("api-token-auth/", obtain_jwt_token), # djanto-restframework-jwt
+    path("rest-auth/", include('rest_auth.urls')),
+    path("rest-auth/registration/", include('rest_auth.registration.urls')),
+    #path("api-token-auth/", obtain_jwt_token), # djanto-restframework-jwt
+
     # Your stuff: custom urls includes go here
     path("images/", include("nomadgram.images.urls", namespace="images")), # image app url
     path("notifications/", include("nomadgram.notifications.urls", namespace="notifications")), # notification app url
