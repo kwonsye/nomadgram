@@ -24,6 +24,9 @@ Cloning Instagram From NomadCoder
     
     - JWT
         - <a href="https://jpadilla.github.io/django-rest-framework-jwt/">Django Rest Framework JWT</a>
+    
+    - Auth
+        - <a href="https://django-rest-auth.readthedocs.io/en/latest/">Django-Rest-Auth</a>
 
 - <b>TODO API Trello Board</b>
     - https://trello.com/b/Dnl4D9dU
