@@ -14,14 +14,14 @@ class User(AbstractUser):
 
     # First Name and Last Name do not cover name patterns
     # around the globe.
-    profile_image = models.ImageField(null=True)
+    profile_image = models.ImageField(null=True, blank=True)# blank=True면 필수 필드가 아님 
     name = models.CharField(_("Name of User"), blank=True, max_length=255)
-    website = models.URLField(null=True) # migration 전의 User에게 해당 필드는 공백으로 남겨짐
-    bio = models.TextField(null=True)
+    website = models.URLField(null=True, blank=True) # migration 전의 User에게 해당 필드는 공백으로 남겨짐
+    bio = models.TextField(null=True, blank=True)
     phone = models.CharField(max_length=140, null=True)
     gender = models.CharField(max_length=80, choices=GENDER_CHOICES, null=True)
     followers = models.ManyToManyField("self", blank=True) # 나를 팔로하는 사람들 / 다대다 관계
-    followings = models.ManyToManyField("self", blank=True) # 내가 팔로하는 사람들 / blank=True면 필수 필드가 아님 
+    followings = models.ManyToManyField("self", blank=True) # 내가 팔로하는 사람들
 
     def __str__(self):
         return self.username
