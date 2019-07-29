@@ -1,6 +1,6 @@
 from django.urls import path
 from nomadgram.images.views import (
-    feed_view,
+    images_view,
     detail_image_view,
     like_image_view,
     comment_image_view,
@@ -15,7 +15,7 @@ urlpatterns = [
     #path("all/", view=list_all_images_view, name="list_all_images"), #/images/all -> list all images
     #path("comments/", view=list_all_comments_view, name="list_all_comments"), #/images/comments -> list all comments
     #path("likes/", view=list_all_likes_view, name="list_all_likes"), #/images/likes -> list all likes
-    path("", view=feed_view, name="feed_view"), #/images/ -> view feed
+    path("", view=images_view, name="images_view"), #/images/ -> [get]view feed [post]post my image
     path("<int:image_id>/",view=detail_image_view, name="detail_image_view"), # /images/3/ -> [get]view detail image of image_id=3 [put]update,edit image=3
     path("<int:image_id>/likes/", view=like_image_view, name="like_image_view"), #/images/3/likes/ -> [get]get users list who like image=3 [post]create like to image id=3
     path("<int:image_id>/unlikes/", view=unlike_image_view, name="unlike_image_view"), #/images/3/unlikes/ -> delete like to image=3
