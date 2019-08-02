@@ -41,7 +41,7 @@ class ListAllLikes(APIView):
 list_all_likes_view = ListAllLikes.as_view()
 """
 
-class Feed(APIView):
+class Images(APIView):
     
     def get(self, request, format=None):
         """사용자가 following한 사용자들의 최신 사진 2개씩 feed에 보여준다"""
@@ -69,7 +69,18 @@ class Feed(APIView):
 
         return Response(data=serializer.data)
 
-feed_view = Feed.as_view()
+    def post(self, request, format=None):
+        """사용자가 image를 올린다 {"file":"", "location":"", "caption":""}"""
+        serializer = serializers.InputImageSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save(creator=request.user)
+            
+            return Response(data=serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+images_view = Images.as_view()
 
 class LikeImage(APIView):
 

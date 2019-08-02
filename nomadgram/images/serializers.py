@@ -82,7 +82,7 @@ class SmallImageSerializer(serializers.ModelSerializer):
 
 class InputImageSerializer(serializers.ModelSerializer):
 
-    """image 수정을 위한 시리얼라이저"""
+    """image 수정/게시를 위한 시리얼라이저"""
 
     #file = serializers.FileField(required=False) # 필수 필드가 아니여서 partial update가 가능하도록 설정 -> view에서 partial=True로 설정해도됨
 
