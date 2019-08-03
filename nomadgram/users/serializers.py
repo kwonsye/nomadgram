@@ -5,7 +5,7 @@ from nomadgram.images import serializers as images_serializers
 
 class UserProfileSerializer(serializers.ModelSerializer):
 
-    images = images_serializers.SimpleCountImageSerializer(many=True)
+    images = images_serializers.SimpleCountImageSerializer(many=True, read_only=True) # 수정 불가 필드
     posts_count = serializers.ReadOnlyField() # 수정 불가 필드 <- for 프로필 업데이트 뷰
     followers_count = serializers.ReadOnlyField()
     followings_count = serializers.ReadOnlyField()
